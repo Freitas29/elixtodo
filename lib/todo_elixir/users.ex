@@ -9,7 +9,7 @@ defmodule TodoElixir.Users do
   alias TodoElixir.Users.User
 
   @doc """
-  Returns the list of userr.
+  Returns the list of users.
 
   ## Examples
 

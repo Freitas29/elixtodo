@@ -7,6 +7,10 @@ defmodule TodoElixirWeb.Router do
 
   scope "/api", TodoElixirWeb do
     pipe_through :api
+    
+    resources "/users", UserController
+    resources "/projects", ProjectController
+    resources "/todos", TodoController
   end
 
   # Enables LiveDashboard only for development

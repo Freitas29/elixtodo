@@ -7,8 +7,8 @@ defmodule TodoElixirWeb.UserController do
   action_fallback TodoElixirWeb.FallbackController
 
   def index(conn, _params) do
-    userr = Users.list_userr()
-    render(conn, "index.json", userr: userr)
+    users = Users.list_users()
+    render(conn, "index.json", users: users)
   end
 
   def create(conn, %{"user" => user_params}) do
