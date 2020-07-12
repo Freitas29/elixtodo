@@ -3,7 +3,7 @@ defmodule TodoElixir.UsersTest do
 
   alias TodoElixir.Users
 
-  describe "userr" do
+  describe "users" do
     alias TodoElixir.Users.User
 
     @valid_attrs %{email: "some email", name: "some name", password_hash: "some password_hash"}

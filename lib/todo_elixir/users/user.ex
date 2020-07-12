@@ -6,6 +6,7 @@ defmodule TodoElixir.Users.User do
     field :email, :string
     field :name, :string
     field :password_hash, :string
+    field :password, :string, virtual: true
     has_many :projects, TodoElixir.Projects.Project
 
     timestamps()
@@ -14,9 +15,15 @@ defmodule TodoElixir.Users.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:name, :email, :password_hash])
-    |> validate_required([:name, :email, :password_hash])
+    |> cast(attrs, [:name, :email, :password])
+    |> validate_required([:name, :email, :password])
     |> put_password()
+    |> IO.inspect
   end
   
+  defp put_password(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset) do
+    put_change(changeset, :password_hash, Bcrypt.hash_pwd_salt(password))
+  end
+
+  defp put_password(changeset), do: changeset
 end

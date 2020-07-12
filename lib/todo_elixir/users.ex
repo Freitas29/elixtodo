@@ -13,11 +13,11 @@ defmodule TodoElixir.Users do
 
   ## Examples
 
-      iex> list_userr()
+      iex> list_users()
       [%User{}, ...]
 
   """
-  def list_userr do
+  def list_users do
     Repo.all(User)
   end
 
