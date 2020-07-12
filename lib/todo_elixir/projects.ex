@@ -17,8 +17,9 @@ defmodule TodoElixir.Projects do
       [%Project{}, ...]
 
   """
-  def list_projects do
-    Repo.all(Project)
+  def list_projects(user_id) do
+    query = Project.by_user(user_id)
+    Repo.all(query)
   end
 
   @doc """

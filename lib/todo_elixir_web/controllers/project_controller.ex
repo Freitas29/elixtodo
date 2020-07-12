@@ -6,8 +6,8 @@ defmodule TodoElixirWeb.ProjectController do
 
   action_fallback TodoElixirWeb.FallbackController
 
-  def index(conn, _params) do
-    projects = Projects.list_projects()
+  def index(conn, %{"user_id" => user}) do
+    projects = Projects.list_projects(user)
     render(conn, "index.json", projects: projects)
   end
 

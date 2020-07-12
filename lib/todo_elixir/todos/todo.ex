@@ -14,6 +14,6 @@ defmodule TodoElixir.Todos.Todo do
   def changeset(todo, attrs) do
     todo
     |> cast(attrs, [:name, :finished])
-    |> validate_required([:name, :finished])
+    |> validate_required([:name, :finished, :project_id])
   end
 end
