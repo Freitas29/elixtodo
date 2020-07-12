@@ -3,6 +3,7 @@ defmodule TodoElixir.Projects.Project do
   import Ecto.Changeset
   import Ecto.Query
   alias TodoElixir.Projects.Project
+  import Ecto.Query
 
   schema "projects" do
     field :title, :string
@@ -13,8 +14,8 @@ defmodule TodoElixir.Projects.Project do
   end
 
   def by_user(user_id) do
-    from project in Project,
-      where: project.user_id == ^user_id
+    Project
+    |> where([p], p.user_id == ^user_id)
   end
 
   @doc false
