@@ -26,6 +26,10 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :todo_elixir, TodoElixir.Guardian,
+       issuer: "todo_elixir",
+       secret_key: "Cla2Co6H9lu0/U3S8ejYKNaOyIXnUsDTLHo8oce/6ULa+J3R8wSV2cNU7BQxmrHa"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

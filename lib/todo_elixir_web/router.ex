@@ -1,14 +1,25 @@
 defmodule TodoElixirWeb.Router do
   use TodoElixirWeb, :router
+  alias TodoElixir.Guardian
 
   pipeline :api do
     plug :accepts, ["json"]
+  end
+
+  pipeline :jwt_authenticated do
+    plug Guardian.AuthPipeline
   end
 
   scope "/api", TodoElixirWeb do
     pipe_through :api
     
     resources "/users", UserController
+    post "/sign_in", UserController, :sign_in
+  end
+
+  scope "/api", TodoElixirWeb do
+    pipe_through [:api, :jwt_authenticated]
+
     resources "/projects", ProjectController
     resources "/todos", TodoController
   end
