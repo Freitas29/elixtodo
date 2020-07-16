@@ -3,16 +3,23 @@ defmodule TodoElixirWeb.ProjectController do
 
   alias TodoElixir.Projects
   alias TodoElixir.Projects.Project
+  alias TodoElixir.Guardian
+
 
   action_fallback TodoElixirWeb.FallbackController
 
-  def index(conn, %{"user_id" => user}) do
-    projects = Projects.list_projects(user)
+  def index(conn, project_params \\ {}) do
+    user = Guardian.Plug.current_resource(conn)
+
+    projects = Projects.list_projects(user.id)
+    
     render(conn, "index.json", projects: projects)
   end
 
+
   def create(conn, %{"project" => project_params}) do
-    with {:ok, %Project{} = project} <- Projects.create_project(project_params) do
+    user = Guardian.Plug.current_resource(conn)
+    with {:ok, %Project{} = project} <- Projects.create_project(project_params, user) do
       conn
       |> put_status(:created)
       |> put_resp_header("location", Routes.project_path(conn, :show, project))

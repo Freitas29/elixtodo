@@ -19,6 +19,7 @@ defmodule TodoElixir.Todos do
   """
   def list_todos(project_id) do
     query = Todo.by_project_id(project_id)
+    IO.puts "caiu no list todos"
     Repo.all(query)
   end
 

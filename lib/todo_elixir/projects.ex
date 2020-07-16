@@ -50,8 +50,10 @@ defmodule TodoElixir.Projects do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_project(attrs \\ %{}) do
-    %Project{}
+  def create_project(attrs \\ %{}, user) do
+    %Project{
+      user_id: user.id
+    }
     |> Project.changeset(attrs)
     |> Repo.insert()
   end

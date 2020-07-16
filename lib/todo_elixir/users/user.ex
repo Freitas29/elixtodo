@@ -18,7 +18,6 @@ defmodule TodoElixir.Users.User do
     |> cast(attrs, [:name, :email, :password])
     |> validate_required([:name, :email, :password])
     |> put_password()
-    |> IO.inspect
   end
   
   defp put_password(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset) do
