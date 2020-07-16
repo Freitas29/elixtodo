@@ -6,9 +6,8 @@ defmodule TodoElixirWeb.TodoController do
 
   action_fallback TodoElixirWeb.FallbackController
 
-  def index(conn, %{"project_id" => project_id}) do
-    IO.puts "tá chegando aqui "
-    todos = Todos.list_todos(project_id)
+  def index(conn, %{"todo" => todo_params}) do
+    todos = Todos.list_todos(todo_params)
     render(conn, "index.json", todos: todos)
   end
 

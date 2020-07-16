@@ -23,7 +23,7 @@ defmodule TodoElixir.Todos.Todo do
   @doc false
   def changeset(todo, attrs) do
     todo
-    |> cast(attrs, [:name, :finished])
+    |> cast(attrs, [:name, :finished, :project_id])
     |> validate_required([:name, :finished, :project_id])
   end
 end
