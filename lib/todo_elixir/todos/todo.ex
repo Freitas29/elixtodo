@@ -4,10 +4,13 @@ defmodule TodoElixir.Todos.Todo do
   import Ecto.Query
   alias TodoElixir.Todos.Todo
 
+  @primary_key {:id, :binary_id, autogenerate: true}
+  @derive {Phoenix.Param, key: :id}
+   
   schema "todos" do
     field :finished, :boolean, default: false
     field :name, :string
-    field :project_id, :id
+    field :project_id, :binary_id
 
     timestamps()
   end
