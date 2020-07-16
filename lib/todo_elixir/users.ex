@@ -35,7 +35,8 @@ defmodule TodoElixir.Users do
   end
 
   defp verify_password(password, %User{} = user) when is_binary(password) do
-    if Bcrypt.check_pass(password, user.password_hash) do
+
+    if Bcrypt.verify_pass(password, user.password_hash) do
       {:ok, user}
     else
       {:error, :invalid_password}
