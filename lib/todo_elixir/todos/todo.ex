@@ -10,7 +10,7 @@ defmodule TodoElixir.Todos.Todo do
   schema "todos" do
     field :finished, :boolean, default: false
     field :name, :string
-    field :project_id, :binary_id
+    field :project_id, :binary_id 
 
     timestamps()
   end
