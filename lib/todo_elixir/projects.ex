@@ -18,7 +18,7 @@ defmodule TodoElixir.Projects do
 
   """
   def list_projects(user_id) do
-    query = Project.by_user(user_id)
+    query = Project.by_user_id(user_id)
     Repo.all(query)
   end
 
@@ -36,7 +36,13 @@ defmodule TodoElixir.Projects do
       ** (Ecto.NoResultsError)
 
   """
-  def get_project!(id), do: Repo.get!(Project, id)
+  def get_project!(id, user_id) do
+    query =  Project.by_user_id(user_id)
+    |> where([p], p.id == ^id)
+    |> preload(:todos)
+    |> select([p], p) 
+    Repo.one!(query)
+  end
 
   @doc """
   Creates a project.

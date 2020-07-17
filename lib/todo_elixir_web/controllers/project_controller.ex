@@ -28,7 +28,8 @@ defmodule TodoElixirWeb.ProjectController do
   end
 
   def show(conn, %{"id" => id}) do
-    project = Projects.get_project!(id)
+    user = Guardian.Plug.current_resource(conn)
+    project = Projects.get_project!(id, user.id)
     render(conn, "show.json", project: project)
   end
 

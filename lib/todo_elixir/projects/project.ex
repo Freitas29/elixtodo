@@ -17,7 +17,7 @@ defmodule TodoElixir.Projects.Project do
     timestamps()
   end
 
-  def by_user(user_id) do
+  def by_user_id(user_id) do
     Project
     |> where([p], p.user_id == ^user_id)
   end
