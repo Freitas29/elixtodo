@@ -11,16 +11,14 @@ defmodule TodoElixirWeb.UserView do
   end
 
   def render("user.json", %{jwt: token,user: user}) do
-    %{id: user.id,
-      name: user.name,
+    %{name: user.name,
       email: user.email,
-      password_hash: user.password_hash,
       token: token}
   end
 
   def render("jwt.json", %{jwt: token}) do
     %{
-      jwt: token
+      token: token
     }
   end
 end
