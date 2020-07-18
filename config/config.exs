@@ -10,6 +10,11 @@ use Mix.Config
 config :todo_elixir,
   ecto_repos: [TodoElixir.Repo]
 
+config :cors_plug,
+  origin: ["http://localhost:3000"],
+  max_age: 86400,
+  methods: ["GET", "POST", "OPTIONS"]
+
 # Configures the endpoint
 config :todo_elixir, TodoElixirWeb.Endpoint,
   url: [host: "localhost"],
