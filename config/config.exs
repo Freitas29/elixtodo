@@ -13,7 +13,7 @@ config :todo_elixir,
 config :cors_plug,
   origin: ["http://localhost:3000"],
   max_age: 86400,
-  methods: ["GET", "POST", "OPTIONS"]
+  methods: ["GET", "POST", "OPTIONS", "PUT", "DELETE"]
 
 # Configures the endpoint
 config :todo_elixir, TodoElixirWeb.Endpoint,
