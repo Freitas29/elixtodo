@@ -33,16 +33,24 @@ defmodule TodoElixirWeb.TodoController do
 
   def update(conn, %{"id" => id, "todo" => todo_params}) do
     todo = Todos.get_todo!(id)
+    user = Guardian.Plug.current_resource(conn)
 
-    with {:ok, %Todo{} = todo} <- Todos.update_todo(todo, todo_params) do
+    with {:ok, %Todo{} = todo} <- Todos.update_todo(todo, todo_params, user) do
       render(conn, "show.json", todo: todo)
+    else
+      {:error, project} ->
+        IO.puts "caiu no error update"
+        conn 
+        |> put_status(401)
+        |> render("error.json", project: project)
     end
   end
 
   def delete(conn, %{"id" => id}) do
     todo = Todos.get_todo!(id)
+    user = Guardian.Plug.current_resource(conn)
 
-    with {:ok, %Todo{}} <- Todos.delete_todo(todo) do
+    with {:ok, %Todo{}} <- Todos.delete_todo(todo, user) do
       send_resp(conn, :no_content, "")
     end
   end

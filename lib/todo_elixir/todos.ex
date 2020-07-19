@@ -53,15 +53,15 @@ defmodule TodoElixir.Todos do
 
   """
   def create_todo(attrs \\ %{}, user) do
-    project = attrs["project_id"]
+    project_id = attrs["project_id"]
     user_id = user.id
 
-    if Project.user_has_project?(user_id, project) do
+    if Project.user_has_project?(user_id, project_id) do
         %Todo{}
         |> Todo.changeset(attrs)
         |> Repo.insert()
     else
-      {:error, project}
+      {:error, project_id}
     end
 
   end
@@ -78,10 +78,17 @@ defmodule TodoElixir.Todos do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_todo(%Todo{} = todo, attrs) do
-    todo
-    |> Todo.changeset(attrs)
-    |> Repo.update()
+  def update_todo(%Todo{} = todo, attrs, user) do
+    project_id = todo.project_id
+    user_id = user.id
+    
+    if Project.user_has_project?(user_id, project_id) do
+      todo
+      |> Todo.changeset(attrs)
+      |> Repo.update()
+    else
+      {:error, project_id}
+    end
   end
 
   @doc """
@@ -96,8 +103,15 @@ defmodule TodoElixir.Todos do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_todo(%Todo{} = todo) do
-    Repo.delete(todo)
+  def delete_todo(%Todo{} = todo, user) do
+    project_id = todo["project_id"]
+    user_id = user.id
+    
+    if Project.user_has_project?(user_id, project_id) do
+      Repo.delete(todo)
+    else
+      {:error, project_id}
+    end
   end
 
   @doc """
