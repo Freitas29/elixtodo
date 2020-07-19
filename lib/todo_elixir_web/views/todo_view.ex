@@ -15,4 +15,10 @@ defmodule TodoElixirWeb.TodoView do
       name: todo.name,
       finished: todo.finished}
   end
+
+  def render("error.json", %{project: project}) do
+    %{
+      message: "Você não tem permissão para criar no projeto #{project}"
+    }
+  end
 end

@@ -7,6 +7,7 @@ defmodule TodoElixir.Todos do
   alias TodoElixir.Repo
 
   alias TodoElixir.Todos.Todo
+  alias TodoElixir.Projects.Project
 
   @doc """
   Returns the list of todos.
@@ -19,7 +20,7 @@ defmodule TodoElixir.Todos do
   """
   def list_todos(project_id) do
     query = Todo.by_project_id(project_id)
-    IO.puts "caiu no list todos"
+    
     Repo.all(query)
   end
 
@@ -51,10 +52,18 @@ defmodule TodoElixir.Todos do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_todo(attrs \\ %{}) do
-    %Todo{}
-    |> Todo.changeset(attrs)
-    |> Repo.insert()
+  def create_todo(attrs \\ %{}, user) do
+    project = attrs["project_id"]
+    user_id = user.id
+
+    if Project.user_has_project?(user_id, project) do
+        %Todo{}
+        |> Todo.changeset(attrs)
+        |> Repo.insert()
+    else
+      {:error, project}
+    end
+
   end
 
   @doc """

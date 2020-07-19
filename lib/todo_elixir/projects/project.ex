@@ -4,6 +4,7 @@ defmodule TodoElixir.Projects.Project do
   import Ecto.Query
   alias TodoElixir.Projects.Project
   alias TodoElixir.Users.User
+  alias TodoElixir.Repo
   import Ecto.Query
 
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -20,6 +21,14 @@ defmodule TodoElixir.Projects.Project do
   def by_user_id(user_id) do
     Project
     |> where([p], p.user_id == ^user_id)
+  end
+
+  def user_has_project?(user_id, project_id) do
+    Project
+    |> where(user_id: ^user_id)
+    |> where(id: ^project_id)
+    |> Repo.all()
+    |> Enum.count() === 1
   end
 
   @doc false
