@@ -104,7 +104,7 @@ defmodule TodoElixir.Todos do
 
   """
   def delete_todo(%Todo{} = todo, user) do
-    project_id = todo["project_id"]
+    project_id = todo.project_id
     user_id = user.id
     
     if Project.user_has_project?(user_id, project_id) do
