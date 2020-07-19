@@ -12,6 +12,13 @@ defmodule TodoElixirWeb.ProjectView do
       todos: render_many(project.todos, TodoView, "todo.json")}
   end
 
+  def render("show_one.json", %{project: project}) do
+    %{
+      id: project.id,
+      title: project.title
+    }
+  end
+
   def render("project.json", %{project: project}) do
     %{id: project.id,
       title: project.title}
